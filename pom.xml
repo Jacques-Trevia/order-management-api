@@ -4,16 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>ecommerce-order-api</groupId>
-	<artifactId>ecommerce-order-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
+<artifactId>spring-boot-starter-parent</artifactId>
+<version>4.1.0</version>
+<relativePath/>
+</parent>
+<groupId>com.jacquestrevia</groupId>
+<artifactId>ecommerce-order-api</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>ecommerce-order-api</name>
+<description>API REST para gestão de pedidos de e-commerce, com Spring Boot, Spring Security e PostgreSQL</description>
+<url>https://github.com/Jacques-Trevia/order-management-api</url>
 	<licenses>
 		<license/>
 	</licenses>
@@ -83,6 +83,11 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+    			<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-jar-plugin</artifactId>
+    			<version>3.4.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
