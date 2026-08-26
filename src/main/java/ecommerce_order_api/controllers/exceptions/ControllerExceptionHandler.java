@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import ecommerce_order_api.services.exceptions.BusinessRuleException;
 import ecommerce_order_api.services.exceptions.DataBaseException;
 import ecommerce_order_api.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,6 +55,18 @@ public class ControllerExceptionHandler {
 			err.addError(f.getField(), f.getDefaultMessage());
 		}
 		
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(BusinessRuleException.class)
+	public ResponseEntity<StandardError> businessRule(BusinessRuleException e, HttpServletRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(status.value());
+		err.setError("Business rule violation");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 }

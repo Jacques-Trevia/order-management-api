@@ -1,6 +1,8 @@
 package ecommerce_order_api.entities;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -8,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,18 +27,23 @@ public class Customer {
 	private String email;
 	private String password;
 	private String phone;
-	private LocalDateTime createdAt;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant moment;
+	
+	@OneToMany(mappedBy = "customer")
+	private List<Order> orders = new ArrayList<>();
 	
 	public Customer() {
 	}
 
-	public Customer(Long id, String name, String email, String password, String phone, LocalDateTime createdAt) {
+	public Customer(Long id, String name, String email, String password, String phone, Instant moment) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phone = phone;
-		this.createdAt = createdAt;
+		this.moment = moment;
 	}
 
 	public Long getId() {
@@ -78,12 +86,16 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+	public Instant getMoment() {
+		return moment;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+	public void setMoment(Instant moment) {
+		this.moment = moment;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	@Override

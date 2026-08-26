@@ -1,6 +1,6 @@
 package ecommerce_order_api.services;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class CustomerService {
 		Customer entity = new Customer();
 		copyDtoToEntity(dto, entity);
 		
-		entity.setCreatedAt(LocalDateTime.now());
+		entity.setMoment(Instant.now());
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new CustomerDTO(entity);

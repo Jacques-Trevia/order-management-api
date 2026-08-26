@@ -1,6 +1,6 @@
 package ecommerce_order_api.dto;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import ecommerce_order_api.entities.Customer;
 import jakarta.validation.constraints.Email;
@@ -19,17 +19,17 @@ public class CustomerDTO {
 	
 	@NotBlank(message = "Required field")
 	private String phone;
-	private LocalDateTime createdAt;
+	private Instant moment;
 	
 	public CustomerDTO() {
 	}
 
-	public CustomerDTO(Long id, String name, String email, String phone, LocalDateTime createdAt) {
+	public CustomerDTO(Long id, String name, String email, String phone, Instant moment) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
-		this.createdAt = createdAt;
+		this.moment = moment;
 	}
 	
 	public CustomerDTO(Customer entity) {
@@ -37,7 +37,7 @@ public class CustomerDTO {
 		name = entity.getName();
 		email = entity.getEmail();
 		phone = entity.getPhone();
-		createdAt = entity.getCreatedAt();
+		moment = entity.getMoment();
 	}
 
 	public Long getId() {
@@ -72,11 +72,11 @@ public class CustomerDTO {
 		this.phone = phone;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+	public Instant getMoment() {
+		return moment;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+	public void setMoment(Instant moment) {
+		this.moment = moment;
 	}
 }
