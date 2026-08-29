@@ -18,6 +18,7 @@ public class OrderDTO {
 	private OrderStatus status;
 	private CustomerDTO customer;
 	private BigDecimal total;
+	private PaymentDTO payment;
 	
 	@NotEmpty(message = "There must be at least one item")
 	private List<OrderItemDTO> items = new ArrayList<>();
@@ -25,13 +26,14 @@ public class OrderDTO {
 	public OrderDTO() {
 	}
 
-	public OrderDTO(Long id, Instant moment, String deliveryAddress, OrderStatus status, CustomerDTO customer, BigDecimal total) {
+	public OrderDTO(Long id, Instant moment, String deliveryAddress, OrderStatus status, CustomerDTO customer, BigDecimal total, PaymentDTO payment) {
 		this.id = id;
 		this.moment = moment;
 		this.deliveryAddress = deliveryAddress;
 		this.status = status;
 		this.customer = customer;
 		this.total = total;
+		this.payment = payment;
 	}
 	
 	public OrderDTO(Order entity) {
@@ -41,6 +43,10 @@ public class OrderDTO {
 		status = entity.getStatus();
 		customer = new CustomerDTO(entity.getCustomer());
 		total = entity.getTotal();
+		
+		if (entity.getPayment() != null) {
+			payment = new PaymentDTO(entity.getPayment());
+		}
 		
 		for (OrderItem item : entity.getItems()) {
 			OrderItemDTO itemDto = new OrderItemDTO(item);
@@ -94,5 +100,9 @@ public class OrderDTO {
 	
 	public BigDecimal getTotal() {
 		return total;
+	}
+
+	public PaymentDTO getPayment() {
+		return payment;
 	}
 }
