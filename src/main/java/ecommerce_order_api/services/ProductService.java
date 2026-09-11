@@ -102,11 +102,16 @@ public class ProductService {
 		entity.setDescription(dto.getDescription());
 		entity.setPrice(dto.getPrice());
 		entity.setStockQuantity(dto.getStockQuantity());
-		
+
 		entity.getCategories().clear();
 		for (CategoryDTO catDto : dto.getCategories()) {
-			Category category = categoryRepository.getReferenceById(catDto.getId());
-			entity.getCategories().add(category);
+			try {
+				Category category = categoryRepository.getReferenceById(catDto.getId());
+				entity.getCategories().add(category);
+			}
+			catch (EntityNotFoundException e) {
+				throw new ResourceNotFoundException("Category not found: " + catDto.getId());
+			}
 		}
 	}
 }
